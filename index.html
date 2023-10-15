@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="message">
+
+    </div>
+    <input id="login" type="text" placeholder="login" name="login" />
+    <input id="pass" type="password" placeholder="pass" name="pass" />
+    <button>Авторизация</button>
+
+    <script>
+        let name = 'said';
+        let password = '123'
+        document.querySelector('button').addEventListener('dblclick', function(event){
+            let inp_name = document.querySelector('#login').value
+            let inp_pass = document.querySelector('#pass').value
+            let valid_name = validName(inp_name);
+            let valid_pass = validPass(inp_pass);
+            if( valid_name && valid_pass){
+                if(inp_name == name && password == inp_pass){
+                    document.querySelector('.message').innerHTML = '<h2 style="color: green">Вы успешно авторизованы</h2>'
+                }else{
+                    document.querySelector('.message').innerHTML = `<h2 style="color: red">Логин и или пароль неверны</h2> \n`
+                }
+            }else{
+                document.querySelector('.message').innerHTML = `<h2 style="color: red">${sessionStorage.getItem('errorName')}</h2> \n`
+                document.querySelector('.message').innerHTML += `<h2 style="color: red">${sessionStorage.getItem('errorPass')}</h2>`
+            }
+        })
+
+        function validName(name){
+            let flag = false;
+            if(name == ''){
+                flag = true;
+                sessionStorage.setItem('errorName', 'Name Пуст')
+            }else if(name.length < 3){
+                flag = true;
+                sessionStorage.setItem('errorName', 'Name меньше 3-х символов и это плохо')
+            }
+            if(flag == true) return false;
+            return true;
+        }
+
+        function validPass(pass){
+            let flag = false;
+            if(pass == ''){
+                flag = true;
+                sessionStorage.setItem('errorPass', 'pass Пуст')
+            }else if(pass.length < 3){
+             
+                flag = true;
+                sessionStorage.setItem('errorPass', 'pass меньше 3-х символов и это плохо')
+            }
+            if(flag == true) return false;
+            return true;
+        }
+    </script>
+</body>
+</html>
